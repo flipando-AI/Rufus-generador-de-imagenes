@@ -4,9 +4,11 @@ const outputText = document.getElementById('promptText');
 form.addEventListener('submit', function(event) {
   event.preventDefault();
   updateOutput();
-});const inputFields = document.querySelectorAll('input[data-hint], textarea[data-hint]');
+});
 
-// Add event listeners for input fields
+const inputFields = document.querySelectorAll('textarea[data-hint]');
+
+// Agregar event listeners a los campos de entrada
 inputFields.forEach(function(input) {
   input.addEventListener('input', function() {
     updateOutput();
@@ -34,35 +36,47 @@ function hideHint(input) {
   }
 }
 
-
 function updateOutput() {
   const input1 = document.getElementById('input1').value;
   const input2 = document.getElementById('input2').value;
-    const input3 = document.getElementById('input3').value;
-    const input4 = document.getElementById('input4').value;
-    const input5 = document.getElementById('input5').value;
-    const input6 = document.getElementById('input6').value;
-   const input7 = document.getElementById('input7').value;
-   const input8 = document.getElementById('input8').value;
-   const input9 = document.getElementById('input9').value;
-  
- 
+  const input3 = document.getElementById('input3').value;
+  const input4 = document.getElementById('input4').value;
 
-  const output = `
-  
-  Quiero una imagen de <span class="input1">${input1}</span>  con un estilo visual  y una paleta de colores <span class="input2">${input4}</span> . El tema de la imagen es <span class="input2">${input2}</span> , y quiero que incluya <span class="input3">${input3}</span> . Deseo que la imagen transmita una atmósfera <span class="input5">${input5}</span>  y tenga una composición <span class="input6">${input6}</span>  con iluminación <span class="input7">${input7}</span> . Me gustaría que la imagen tenga un estilo artístico <span class="input8">${input8}</span> . La imagen será utilizada en <span class="input9">${input9}</span> .
-   
- `;
+  const output = `You are now a Midjourney text-to-image prompt generator. 
+
+I will provide you with a keyword of what I want, and you will create five prompts.
+
+The keyword is: <span class="input1">${input1}</span>
+Do not ask for clarity - simply create the five prompts using the best ideas and I will request changes as needed.
+Add style by including these keywords in the prompt: <span class="input2">${input2}</span> At the end of the prompt, I would like you to add the following parameters: The following are parameters that can be added to the very end of the prompt with two hyphens before it: <span class="input3">${input3}</span> <span class="input4">${input4}</span>
+
+Note: At the end of the prompt, you can also add a camera type if it’s not a painting style, here are some examples:DLSR, Nikon D, Nikon D3, Canon EOS R3, Canon EOS R8
+
+We can also provide a lens that was used:Focal length 14mm, Focal length 35mm, Fisheye lens, Wide angle lens. 
+
+The prompts should be formatted similar to the following examples:
+
+Prompt #1 Highly detailed watercolor painting, majestic lion, intricate fur detail, photography,natural lighting, brush strokes, watercolor splatter --ar 3:2 --v 4
+
+Prompt #2 A portrait photo of a red headed female standing in the water covered in lily pads, long braided hair, Canon EOS R3, volumetric lighting --v 5
+
+Prompt # 3 A headshot photo of a female model --ar 9:16
+
+Prompt #4 Stunning sunset over a wide, open beach, vibrant pink orange and gold sky, water reflects colors of the sunset, mesmerizing effect, lone tall tree in the foreground, tree silhouetted against the sunset, drama feel, Canon EOS R3, wide angle, landscape scene --ar 16:9
+
+Prompt #5 Watercolor painting, family of elephants, roaming the savannah, delicate brush strokes, soft colors, Canon EOS R3, wide angle lens --ar 3:2 --v 5.
+
+Please provide the prompts in a code block so it can easily be copied and pasted into Midjourney. Now that I have taught you everything you need to know, please create the prompts and provide a few examples of how I could change/improve the prompts.`;
 
   outputText.innerHTML = output;
 
-  // Reset all input classes
-  const inputs = document.querySelectorAll('input');
+  // Resetear todas las clases de los campos de entrada
+  const inputs = document.querySelectorAll('textarea');
   inputs.forEach(function(input) {
     input.classList.remove('filled');
   });
 
-  // Add 'filled' class to the corresponding inputs
+  // Agregar la clase 'filled' a los campos de entrada correspondientes
   const input1Elements = document.querySelectorAll('.input1');
   input1Elements.forEach(function(element) {
     const input = document.getElementById('input1');
@@ -86,32 +100,10 @@ function updateOutput() {
     const input = document.getElementById('input4');
     input.classList.add('filled');
   });
-
-
- const input5Elements = document.querySelectorAll('.input5');
-  input5Elements.forEach(function(element) {
-    const input = document.getElementById('input5');
-    input.classList.add('filled');
-  });
-
-
- const input6Elements = document.querySelectorAll('.input6');
-  input6Elements.forEach(function(element) {
-    const input = document.getElementById('input6');
-    input.classList.add('filled');
-  });
-
-
- const input7Elements = document.querySelectorAll('.input7');
-  input7Elements.forEach(function(element) {
-    const input = document.getElementById('input7');
-    input.classList.add('filled');
-  });
 }
 
-
-// Event listeners for input fields
-const inputs = document.querySelectorAll('input');
+// Event listeners para los campos de entrada
+const inputs = document.querySelectorAll('textarea');
 inputs.forEach(function(input) {
   input.addEventListener('input', function() {
     updateOutput();
@@ -141,7 +133,7 @@ copyInputsButton.addEventListener('click', function() {
 });
 
 function copyInputsAsJson() {
-  const inputs = document.querySelectorAll('input, textarea');
+  const inputs = document.querySelectorAll('textarea');
   const inputsData = {};
 
   inputs.forEach(function(input) {
